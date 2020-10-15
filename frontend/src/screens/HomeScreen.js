@@ -15,7 +15,7 @@ const HomeScreen = () => {
                 So we pass in product because we want to show something for each product...for now product.name*/}
                 {products.map(product => (
                     // These are media query classes from react-bootstrap to make this component row screen dynamic
-                    <Col sm={12} md={6} lg={4} xl={3}>
+                    <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
                         <Product product={product}/>
                     </Col>
                 ))}
