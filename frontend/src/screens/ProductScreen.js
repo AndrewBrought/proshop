@@ -8,7 +8,7 @@ import Loader from '../components/Loader';
 import {listProductDetails} from '../actions/productActions';
 
 const ProductScreen = ({ history, match }) => {
-    const [qty, setQty] = useState(0);
+    const [qty, setQty] = useState(1);
 
     const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ const ProductScreen = ({ history, match }) => {
     //Here, we want our click to take us to the cart page with the product id and qty as a query string -
     // we can use 'history' to push our values over
     const addToCartHandler = () => {
-        // this should be read as: props.history.push will just redirect with the id and a query string of qty 
+        // this should be read as: props.history.push will just redirect with the id and a query string of qty
         history.push(`/cart/${match.params.id}?qty=${qty}`);
     }
 
