@@ -2,6 +2,7 @@ import asyncHandler from 'express-async-handler';
 import generateToken from '../utils/generateToken.js';
 import User from '../models/userModel.js';
 
+
 // @desc    Auth user & get token
 // @route   POST /api/users/login
 // @access  Public
@@ -26,6 +27,7 @@ const authUser = asyncHandler(async (req, res) => {
     }
 })
 
+
 // @desc    Get user profile
 // @route   GET /api/users/profile
 // @access  Private
@@ -46,4 +48,44 @@ const getUserProfile = asyncHandler(async (req, res) => {
 
 })
 
-export {authUser, getUserProfile}
+
+// @desc    Register a new user
+// @route   POST /api/users
+// @access  Private
+const registerUser = asyncHandler(async (req, res) => {
+    const {name, email, password} = req.body
+
+    // check for user by email, if it exists it's put in the user variable
+    const userExists = await User.findOne({email})
+
+    if (userExists) {
+        res.status(400)
+        throw new Error('User already exists')
+    }
+
+    const user = await User.create({
+        // user create is basically syntactic sugar for the .save method
+        // we handle password encryption through middleware set up in our userModel
+        name,
+        email,
+        password
+    })
+
+    if (user) {
+        res.status(201).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            isAdmin: user.isAdmin,
+            token: generateToken(user._id),
+        })
+
+    } else {
+        res.status(400)
+        throw new Error('Invalid user data')
+    }
+
+})
+
+
+export { authUser, registerUser, getUserProfile }
