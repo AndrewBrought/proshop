@@ -1,8 +1,21 @@
 import React from 'react';
+// if you want to call an action: useDispatch, if you want to bring something in: useSelector
+import { useDispatch, useSelector } from 'react-redux';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Navbar, Nav, Container} from 'react-bootstrap';
+import NavDropdown from 'react-bootstrap/NavDropdown';
+import { logout } from '../actions/userActions';
 
 const Header = () => {
+    const dispatch = useDispatch()
+
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
+    const logoutHandler = () => {
+        dispatch(logout())
+    }
+
     return <header>
         <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>
             <Container>
@@ -17,11 +30,24 @@ const Header = () => {
                                 <i className='fas fa-shopping-cart'></i> cart
                             </Nav.Link>
                         </LinkContainer>
-                        <LinkContainer to='/login'>
+                        {userInfo ? (
+                            <NavDropdown title={userInfo.name} id='username'>
+                                <LinkContainer to='/profile'>
+                                    <NavDropdown.Item>
+                                        Profile
+                                    </NavDropdown.Item>
+                                </LinkContainer>
+                                <NavDropdown.Item onClick={logoutHandler}>
+                                    Logout
+                                </NavDropdown.Item>
+                            </NavDropdown>
+                        ) : <LinkContainer to='/login'>
                             <Nav.Link>
                                 <i className='fas fa-user'></i> sign in
                             </Nav.Link>
                         </LinkContainer>
+                        }
+
                     </Nav>
                 </Navbar.Collapse>
             </Container>
