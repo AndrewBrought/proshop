@@ -29,9 +29,11 @@ export const login = (email, password) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_LOGIN_FAIL,
-            payload: error.response && error.response.message
+            payload:
+                //was not getting my custom error message because I left out 'data' in the condition of my ternary
+                error.response && error.response.data.message
                 ? error.response.data.message
-                : error.message
+                : error.message,
         })
     }
 }
