@@ -1,12 +1,15 @@
 import axios from 'axios';
 import {
     USER_DETAILS_FAIL,
-    USER_DETAILS_REQUEST, USER_DETAILS_SUCCESS,
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
     USER_LOGIN_FAIL,
     USER_LOGIN_REQUEST,
     USER_LOGIN_SUCCESS,
-    USER_LOGOUT, USER_REGISTER_FAIL,
-    USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS
+    USER_LOGOUT,
+    USER_REGISTER_FAIL,
+    USER_REGISTER_REQUEST,
+    USER_REGISTER_SUCCESS
 } from '../constants/userConstants';
 import {PRODUCT_DETAILS_FAIL} from '../constants/productConstants';
 
@@ -112,8 +115,7 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
         }
 
         const {data} = await axios.get(
-            `/api/users/${id}`,
-            config
+            `/api/users/${id}`, config
         )
 
         dispatch({
