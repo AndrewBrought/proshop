@@ -1,10 +1,15 @@
 import axios from 'axios';
 import {
+    USER_DETAILS_FAIL,
+    USER_DETAILS_REQUEST,
+    USER_DETAILS_SUCCESS,
     USER_LOGIN_FAIL,
     USER_LOGIN_REQUEST,
     USER_LOGIN_SUCCESS,
-    USER_LOGOUT, USER_REGISTER_FAIL,
-    USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS
+    USER_LOGOUT,
+    USER_REGISTER_FAIL,
+    USER_REGISTER_REQUEST,
+    USER_REGISTER_SUCCESS
 } from '../constants/userConstants';
 import {PRODUCT_DETAILS_FAIL} from '../constants/productConstants';
 
@@ -84,6 +89,43 @@ export const register = (name, email, password) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type: USER_REGISTER_FAIL,
+            payload:
+            //was not getting my custom error message because I left out 'data' in the condition of my ternary
+                error.response && error.response.data.message
+                    ? error.response.data.message
+                    : error.message,
+        })
+    }
+}
+
+
+export const getUserDetails = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type: USER_DETAILS_REQUEST,
+        })
+
+        const { userLogin: { userInfo } } = getState()
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${userInfo.token}`
+            },
+        }
+
+        const {data} = await axios.get(
+            `/api/users/${id}`, config
+        )
+
+        dispatch({
+            type: USER_DETAILS_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: USER_DETAILS_FAIL,
             payload:
             //was not getting my custom error message because I left out 'data' in the condition of my ternary
                 error.response && error.response.data.message

@@ -8,7 +8,7 @@ import {
     productDetailsReducer
 } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers';
-import { userLoginReducer, userRegisterReducer } from './reducers/userReducers';
+import { userLoginReducer, userRegisterReducer, userDetailsReducer } from './reducers/userReducers';
 
 const reducer = combineReducers({
     // ProductList is what is going to show as the state
@@ -17,6 +17,7 @@ const reducer = combineReducers({
     cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
+    userDetails: userDetailsReducer,
 });
 
 const cartItemsFromStorage = localStorage.getItem('cartItems') ?
