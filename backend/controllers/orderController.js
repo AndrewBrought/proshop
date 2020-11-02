@@ -40,4 +40,4 @@ const addOrderItems = asyncHandler(async (req, res) => {
 })
 
 
-export { getProducts }
+export { addOrderItems }
