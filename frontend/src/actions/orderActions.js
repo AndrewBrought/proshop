@@ -54,7 +54,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
             },
         }
         // HE will probably fix this but in the initial build he didn't include the slash - I did because I don't
-        // know of a situation where it wouldn't exist...we'll see
+        // know of a situation where it wouldn't exist...I was right
         const {data} = await axios.get(`/api/orders/${id}`, config)
 
         dispatch({
