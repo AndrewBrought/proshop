@@ -10,6 +10,7 @@ import {
     ORDER_PAY_REQUEST
 } from '../constants/orderConstants';
 import axios from 'axios';
+import {logout} from './userActions';
 
 
 export const createOrder = (order) => async (dispatch, getState) => {
@@ -67,13 +68,17 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
             payload: data
         })
     } catch (error) {
+        // based const message section off of final
+        const message =
+            error.response && error.response.data.message
+                ? error.response.data.message
+                : error.message
+        if (message === 'Not authorized, token failed') {
+            dispatch(logout())
+        }
         dispatch({
             type: ORDER_DETAILS_FAIL,
-            payload:
-            //was not getting my custom error message because I left out 'data' in the condition of my ternary
-                error.response && error.response.data.message
-                    ? error.response.data.message
-                    : error.message,
+            payload: message,
         })
     }
 }
@@ -93,8 +98,7 @@ export const payOrder = (orderId, paymentResult) => async (dispatch, getState) =
                 Authorization: `Bearer ${userInfo.token}`,
             },
         }
-        // HE will probably fix this but in the initial build he didn't include the slash - I did because I don't
-        // know of a situation where it wouldn't exist...I was right
+
         const {data} = await axios.put(`/api/orders/${orderId}/pay`, paymentResult, config)
 
         dispatch({
