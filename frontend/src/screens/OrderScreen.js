@@ -70,7 +70,7 @@ const OrderScreen = ({ match }) => {
 
 
     const successPaymentHandler = (paymentResult) => {
-        console.log(paymentResult)
+        // console.log(paymentResult)
         dispatch(payOrder(orderId, paymentResult))
     }
 
@@ -127,7 +127,7 @@ const OrderScreen = ({ match }) => {
                                             <Row>
                                                 <Col md={1}>
                                                     <Image src={item.image} alt={item.name}
-                                                           fluid rounder/>
+                                                           fluid rounded/>
                                                 </Col>
                                                 <Col>
                                                     <Link to={`/product/${item.product}`}>
