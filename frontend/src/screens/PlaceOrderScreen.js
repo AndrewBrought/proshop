@@ -87,7 +87,7 @@ const PlaceOrderScreen = ({history}) => {
                                             <Row>
                                                 <Col md={1}>
                                                     <Image src={item.image} alt={item.name}
-                                                           fluid rounder/>
+                                                           fluid rounded />
                                                 </Col>
                                                 <Col>
                                                     <Link to={`/product/${item.product}`}>
