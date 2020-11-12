@@ -4,7 +4,7 @@ import { Table, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { listUsers } from '../actions/userActions';
+import { listUsers, deleteUser } from '../actions/userActions';
 
 const UserListScreen = ({ history }) => {
     const dispatch = useDispatch()
@@ -15,16 +15,24 @@ const UserListScreen = ({ history }) => {
     const userLogin = useSelector(state => state.userLogin)
     const { userInfo } = userLogin
 
+    const userDelete = useSelector(state => state.userDelete)
+    const { success: successDelete } = userDelete
+
     useEffect(() => {
         if (userInfo && userInfo.isAdmin) {
             dispatch(listUsers())
         } else {
             history.push('/login')
         }
-    }, [dispatch, history])
+    }, [dispatch, history, successDelete])
+    // Quick note on dependencies - we call them above so that they will be targeted when they are changed so that
+    // useEffect will run to check and carryout necessary side effects. I know this, but hearing it re-stated like
+    // that made a light-bulb go off
 
     const deleteHandler = (id) => {
-        console.log('delete')
+        if (window.confirm('Are you sure?')) {
+        dispatch(deleteUser(id))
+        }
     }
 
     return (
@@ -56,7 +64,7 @@ const UserListScreen = ({ history }) => {
                                             (
                                                 <i className='fas fa-check' style={{color: 'green'}}></i>
                                             ) : (
-                                                <i className='fas fa-times' style={{colosr: 'red'}}></i>
+                                                <i className='fas fa-times' style={{color: 'red'}}></i>
                                             )
                                         }
                                     </td>
