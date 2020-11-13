@@ -1,6 +1,15 @@
 import express from 'express';
 const router = express.Router();
-import { authUser, registerUser, getUserProfile, updateUserProfile, getUsers, deleteUser } from '../controllers/userController.js';
+import {
+    authUser,
+    registerUser,
+    getUserProfile,
+    updateUserProfile,
+    getUsers,
+    deleteUser,
+    getUserById,
+    updateUser
+} from '../controllers/userController.js';
 import { protect, admin } from '../middleware/authMiddleware.js';
 
 router.route('/').post(registerUser).get(protect, admin, getUsers)
@@ -13,7 +22,11 @@ router
     .put(protect, updateUserProfile)
 // We can tack on .put() because it's involving the same route just a different action
 
-router.route('/:id').delete(protect, admin, deleteUser)
+router
+    .route('/:id')
+    .delete(protect, admin, deleteUser)
+    .get(protect, admin, getUserById)
+    .put(protect, admin, updateUser)
 
 
 export default router;
