@@ -1,3 +1,4 @@
+import path from 'path'
 import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
@@ -34,6 +35,10 @@ app.use('/api/upload', uploadRoutes);
 app.get('/api/config/paypal', (req, res) =>
     res.send(process.env.PAYPAL_CLIENT_ID)
 )
+
+// This is how we make our upload folder static
+const __dirname = path.resolve()
+app.use('/uploads', express.static(path.join(__dirname, '/uploads')))
 
 //middleWare
 app.use(notFound);
