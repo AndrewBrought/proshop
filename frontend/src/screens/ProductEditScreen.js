@@ -57,9 +57,8 @@ const ProductEditScreen = ({ match, history }) => {
             </Link>
 
             <FormContainer>
-                <h1>Edit User</h1>
-                {loadingUpdate && <Loader />}
-                {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
+                <h1>Edit Product</h1>
+
                 {loading ? <Loader /> : error ? <Message variant='danger'>{error}</Message>
                     : (
                         <Form onSubmit={submitHandler}>
@@ -74,26 +73,70 @@ const ProductEditScreen = ({ match, history }) => {
                                 </Form.Control>
                             </Form.Group>
 
-                            <Form.Group controlId='email'>
-                                <Form.Label>Email Address</Form.Label>
+                            <Form.Group controlId='price'>
+                                <Form.Label>Price</Form.Label>
                                 <Form.Control
-                                    type='email'
-                                    placeholder='Enter email'
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    type='number'
+                                    placeholder='Enter price'
+                                    value={price}
+                                    onChange={(e) => setPrice(e.target.value)}
                                 >
                                 </Form.Control>
                             </Form.Group>
 
-                            <Form.Group controlId='isadmin'>
-                                <Form.Check
-                                    type='checkbox'
-                                    label='Is Admin'
-                                    checked={isAdmin}
-                                    onChange={(e) => window.confirm('Are you sure?') && setIsAdmin(e.target.checked)}
+                            <Form.Group controlId='image'>
+                                <Form.Label>Image</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    placeholder='Enter image url'
+                                    value={image}
+                                    onChange={(e) => setImage(e.target.value)}
                                 >
-                                </Form.Check>
+                                </Form.Control>
+                            </Form.Group>
 
+                            <Form.Group controlId='brand'>
+                                <Form.Label>Brand</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    placeholder='Enter brand'
+                                    value={brand}
+                                    onChange={(e) => setBrand(e.target.value)}
+                                >
+                                </Form.Control>
+                            </Form.Group>
+
+                            <Form.Group controlId='countInStock'>
+                                <Form.Label>Count In Stock</Form.Label>
+                                <Form.Control
+                                    type='number'
+                                    placeholder='Enter count in stock'
+                                    value={countInStock}
+                                    onChange={(e) => setCountInStock(e.target.value)}
+                                >
+                                </Form.Control>
+                            </Form.Group>
+
+                            <Form.Group controlId='category'>
+                                <Form.Label>Category</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    placeholder='Enter category'
+                                    value={category}
+                                    onChange={(e) => setCategory(e.target.value)}
+                                >
+                                </Form.Control>
+                            </Form.Group>
+
+                            <Form.Group controlId='description'>
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control
+                                    type='text'
+                                    placeholder='Enter description'
+                                    value={description}
+                                    onChange={(e) => setDescription(e.target.value)}
+                                >
+                                </Form.Control>
                             </Form.Group>
 
 
