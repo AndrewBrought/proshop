@@ -5,7 +5,8 @@ import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import {
     productListReducer,
-    productDetailsReducer
+    productDetailsReducer,
+    productDeleteReducer,
 } from './reducers/productReducers';
 import { cartReducer } from './reducers/cartReducers';
 import {
@@ -24,6 +25,7 @@ const reducer = combineReducers({
     // ProductList is what is going to show as the state
     productList: productListReducer,
     productDetails: productDetailsReducer,
+    productDelete: productDeleteReducer,
     cart: cartReducer,
     userLogin: userLoginReducer,
     userRegister: userRegisterReducer,
