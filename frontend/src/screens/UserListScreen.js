@@ -24,7 +24,7 @@ const UserListScreen = ({ history }) => {
         } else {
             history.push('/login')
         }
-    }, [dispatch, history, successDelete])
+    }, [dispatch, history, successDelete, userInfo])
     // Quick note on dependencies - we call them above so that they will be targeted when they are changed so that
     // useEffect will run to check and carryout necessary side effects. I know this, but hearing it re-stated like
     // that made a light-bulb go off
@@ -69,7 +69,7 @@ const UserListScreen = ({ history }) => {
                                         }
                                     </td>
                                     <td>
-                                        <LinkContainer to={`/user/${user._id}/edit`}>
+                                        <LinkContainer to={`/admin/user/${user._id}/edit`}>
                                             <Button variant='light' className='btn-sm'>
                                                 <i className='fas fa-edit'></i>
                                             </Button>
