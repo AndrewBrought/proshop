@@ -9,7 +9,7 @@ import Message from '../components/Message';
 import { getOrderDetails, payOrder, deliverOrder } from '../actions/orderActions';
 import { ORDER_PAY_RESET, ORDER_DELIVER_RESET } from '../constants/orderConstants';
 
-const OrderScreen = ({ match }) => {
+const OrderScreen = ({ match, history }) => {
     const orderId = match.params.id
 
     const [sdkReady, setSdkReady] = useState(false)
@@ -40,6 +40,10 @@ const OrderScreen = ({ match }) => {
 
 
     useEffect(() => {
+        if (!userInfo) {
+            history.push('login')
+        }
+
         const addPayPalScript = async () => {
             // Here, we're dynamically adding the paypal order script
             const { data: clientId } = await axios.get('/api/config/paypal')
@@ -70,7 +74,7 @@ const OrderScreen = ({ match }) => {
                 setSdkReady(true)
             }
         }
-    }, [order, orderId, dispatch, successPay, successDeliver])
+    }, [order, orderId, dispatch, successPay, successDeliver, history])
 
 
     const successPaymentHandler = (paymentResult) => {
@@ -200,7 +204,7 @@ const OrderScreen = ({ match }) => {
                             )}
 
                             {loadingDeliver && <Loader />}
-                            {userInfo.isAdmin && order.isPaid && !order.isDelivered && (
+                            {userInfo && userInfo.isAdmin && order.isPaid && !order.isDelivered && (
                                 <ListGroup.Item>
                                     <Button type='button' className='btn btn-block' onClick={deliverHandler()}>
                                         Mark As Delivered
