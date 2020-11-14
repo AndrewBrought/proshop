@@ -23,14 +23,11 @@ const OrderScreen = ({ match }) => {
     const orderPay = useSelector(state => state.orderPay)
     const { loading: loadingPay, success: successPay } = orderPay
 
+    const addDecimals = (num) => {
+        return (Math.round(num * 100) / 100).toFixed(2)
+    }
 
     if(!loading) {
-        // Calculate Prices
-        // Needed to make sure this was below where we get the order so we can access order
-        //This will make sure we get 2 decimal places even with 0
-        const addDecimals = (num) => {
-            return (Math.round(num * 100) / 100).toFixed(2)
-        }
 
         order.itemsPrice = addDecimals(order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0))
     }
@@ -135,7 +132,7 @@ const OrderScreen = ({ match }) => {
                                                     </Link>
                                                 </Col>
                                                 <Col md={4}>
-                                                    {item.qty} x ${item.price} = ${item.qty * item.price}
+                                                    {item.qty} x ${item.price} = ${addDecimals(item.qty * item.price)}
                                                 </Col>
                                             </Row>
                                         </ListGroup.Item>
