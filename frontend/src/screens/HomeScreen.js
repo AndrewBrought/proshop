@@ -7,7 +7,9 @@ import Loader from '../components/Loader';
 import {listProducts} from '../actions/productActions';
 
 
-const HomeScreen = () => {
+const HomeScreen = ({ match }) => {
+    const keyword = match.params.keyword
+
     // This makes the request to the backend to get products
     const dispatch = useDispatch();
 
@@ -20,10 +22,10 @@ const HomeScreen = () => {
 
     useEffect(() => {
         // This is firing off the action to get the products and send it down into the state
-        dispatch(listProducts())
+        dispatch(listProducts(keyword))
 
         //    we pass it down here as a dependency
-    }, [dispatch])
+    }, [dispatch, keyword])
 
     return (
         <>

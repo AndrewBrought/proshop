@@ -1,9 +1,11 @@
 import React from 'react';
+import { Route } from 'react-router-dom';
 // if you want to call an action: useDispatch, if you want to bring something in: useSelector
 import { useDispatch, useSelector } from 'react-redux';
 import {LinkContainer} from 'react-router-bootstrap';
 import {Navbar, Nav, Container} from 'react-bootstrap';
 import NavDropdown from 'react-bootstrap/NavDropdown';
+import SearchBox from './SearchBox';
 import { logout } from '../actions/userActions';
 
 const Header = () => {
@@ -24,6 +26,7 @@ const Header = () => {
                 </LinkContainer>
                 <Navbar.Toggle aria-controls="basic-navbar-nav"/>
                 <Navbar.Collapse id="basic-navbar-nav">
+                    <Route render={({ history }) => <SearchBox history={history} />} />
                     <Nav className="ml-auto">
                         <LinkContainer to='/cart'>
                             <Nav.Link>
