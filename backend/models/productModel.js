@@ -4,6 +4,13 @@ const reviewSchema = mongoose.Schema({
     name: {type: String, required: true},
     rating: {type: Number, required: true},
     comment: {type: String, required: true},
+    user: {
+        // This adds a relationship between the review and the user
+        // It will allow us to know which Admin creates which product
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: 'User'
+    },
 }, {
     timestamps: true
 })
