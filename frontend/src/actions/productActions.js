@@ -23,11 +23,11 @@ import {ORDER_LIST_MY_FAIL, ORDER_LIST_MY_REQUEST, ORDER_LIST_MY_SUCCESS} from '
 
 // redux-thunk allows us to add a function within a function to make an async request,
 // we pass in dispatch and that's how we dispatch the productConstants
-export const listProducts = (keyword = '') => async (dispatch) => {
+export const listProducts = (keyword = '', pageNumber = '') => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_LIST_REQUEST })
 
-        const { data } = await axios.get(`/api/products?keyword=${keyword}`)
+        const { data } = await axios.get(`/api/products?keyword=${keyword}&pageNumber=${pageNumber}`)
 
         dispatch({
             type: PRODUCT_LIST_SUCCESS,
