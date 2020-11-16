@@ -25,7 +25,7 @@ const HomeScreen = ({ match }) => {
         dispatch(listProducts(keyword))
 
         //    we pass it down here as a dependency
-    }, [dispatch])
+    }, [dispatch, keyword])
 
     return (
         <>
