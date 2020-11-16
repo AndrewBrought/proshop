@@ -2,6 +2,7 @@ import path from 'path'
 import express from 'express';
 import dotenv from 'dotenv';
 import colors from 'colors';
+import morgan from 'morgan';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import connectDB from './config/db.js';
 
@@ -16,6 +17,12 @@ dotenv.config();
 connectDB();
 
 const app = express();
+
+// Set up middleware that will log when someone hits a route in our backend
+//This is for it to run in dev mode only
+if(process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'))
+}
 
 // This allows us to accept json data in the body
 app.use(express.json());
