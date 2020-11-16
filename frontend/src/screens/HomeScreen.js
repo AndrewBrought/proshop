@@ -10,6 +10,8 @@ import {listProducts} from '../actions/productActions';
 const HomeScreen = ({ match }) => {
     const keyword = match.params.keyword
 
+    const pageNumber = match.params.pageNumber || 1
+
     // This makes the request to the backend to get products
     const dispatch = useDispatch();
 
@@ -22,10 +24,10 @@ const HomeScreen = ({ match }) => {
 
     useEffect(() => {
         // This is firing off the action to get the products and send it down into the state
-        dispatch(listProducts(keyword))
+        dispatch(listProducts(keyword, pageNumber))
 
         //    we pass it down here as a dependency
-    }, [dispatch, keyword])
+    }, [dispatch, keyword, pageNumber])
 
     return (
         <>
@@ -51,5 +53,6 @@ const HomeScreen = ({ match }) => {
         </>
     );
 }
+
 
 export default HomeScreen;
