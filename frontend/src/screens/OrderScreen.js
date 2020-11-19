@@ -109,11 +109,11 @@ const OrderScreen = ({ match, history }) => {
                                 {order.shippingAddress.postalCode},{' '}
                                 {order.shippingAddress.country}
                             </p>
-                            {order.isDelivered ?
-                                <Message variant='success'>Paid on: {order.deliveredAt}</Message>
-                                :
-                                <Message variant='danger'>Not Delivered</Message>
-                            }
+                            {/*{order.isDelivered ?*/}
+                            {/*    <Message variant='success'>Paid on: {order.deliveredAt}</Message>*/}
+                            {/*    :*/}
+                            {/*    <Message variant='danger'>Not Delivered</Message>*/}
+                            {/*}*/}
                         </ListGroup.Item>
 
                         {/* Important to note that the payment method is not store in localStorage, so if you refresh,
@@ -124,13 +124,13 @@ const OrderScreen = ({ match, history }) => {
                                 <strong>Method: </strong>
                                 {order.paymentMethod}
                             </p>
-                            {order.isPaid ?
-                                // Trying to clear the cart after payment goes through
-                                // localStorage.removeItem('cartItems') &&
-                                <Message variant='success'>Paid on: {order.paidAt}</Message>
-                            :
-                                <Message variant='danger'>Not Paid</Message>
-                            }
+                            {/*{order.isPaid ?*/}
+                            {/*    // Trying to clear the cart after payment goes through*/}
+                            {/*    // localStorage.removeItem('cartItems') &&*/}
+                            {/*    <Message variant='success'>Paid on: {order.paidAt}</Message>*/}
+                            {/*:*/}
+                            {/*    <Message variant='danger'>Not Paid</Message>*/}
+                            {/*}*/}
                         </ListGroup.Item>
 
                         <ListGroup.Item>
