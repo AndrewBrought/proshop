@@ -53,7 +53,7 @@ const HomeScreen = ({match}) => {
                         {products.map(product => (
                             // These are media query classes from react-bootstrap to make this component row screen dynamic
                             <Col key={product._id} sm={12} md={6} lg={4} xl={3}>
-                                <Product product={product}/>
+                                <Product product={product} />
                             </Col>
                         ))}
                     </Row>

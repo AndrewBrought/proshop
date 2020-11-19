@@ -93,7 +93,7 @@ export const getOrderDetails = (id) => async (dispatch, getState) => {
 export const payOrder = (orderId, paymentResult) => async (dispatch, getState) => {
     try {
         dispatch({
-            type: ORDER_PAY_REQUEST
+            type: ORDER_PAY_REQUEST,
         })
 
         const { userLogin: { userInfo } } = getState()
@@ -107,10 +107,17 @@ export const payOrder = (orderId, paymentResult) => async (dispatch, getState) =
 
         const {data} = await axios.put(`/api/orders/${orderId}/pay`, paymentResult, config)
 
+        //Here, I'm wanting to clear the cart after successful purchase, and re-route to thankyou screen
+        localStorage.removeItem('cartItems')
         dispatch({
             type: ORDER_PAY_SUCCESS,
             payload: data
         })
+        document.location.href = `/thankyou/${orderId}`
+
+
+
+
     } catch (error) {
         dispatch({
             type: ORDER_PAY_FAIL,

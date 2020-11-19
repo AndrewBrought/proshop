@@ -65,7 +65,7 @@ const PaymentScreen = ({ history }) => {
             </Button>
         </Form>
     </FormContainer>
-        ;
+
 }
 
 export default PaymentScreen;

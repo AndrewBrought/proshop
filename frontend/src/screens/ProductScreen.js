@@ -26,11 +26,11 @@ const ProductScreen = ({history, match}) => {
     const {error: errorProductReview, success: successProductReview} = productReviewCreate
 
     useEffect(() => {
-        if(successProductReview) {
+        if (successProductReview) {
             alert('Review Submitted!')
             setRating(0)
             setComment('')
-            dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
+            dispatch({type: PRODUCT_CREATE_REVIEW_RESET})
         }
         dispatch(listProductDetails(match.params.id))
 
@@ -45,7 +45,7 @@ const ProductScreen = ({history, match}) => {
 
     const submitHandler = (e) => {
         e.preventDefault()
-        dispatch(createProductReview(match.params.id, { rating, comment }))
+        dispatch(createProductReview(match.params.id, {rating, comment}))
     }
 
     return (
@@ -60,7 +60,7 @@ const ProductScreen = ({history, match}) => {
                     : (
                         <>
                             <Row>
-                                <Meta title={product.name} />
+                                <Meta title={product.name}/>
                                 <Col md={6}>
                                     <Image src={product.image} alt={product.name} fluid/>
                                 </Col>
@@ -111,17 +111,22 @@ const ProductScreen = ({history, match}) => {
                                             {product.countInStock > 0 && (
                                                 <ListGroup.Item>
                                                     <Row>
-                                                        <Col>Qty:</Col>
+                                                        <Col>Qty</Col>
                                                         <Col>
-                                                            <Form.Control as='select' value={qty} onChange={(e) =>
-                                                                setQty(e.target.value)}>
-                                                                {[...Array(product.countInStock).keys()].map(x => (
-                                                                    // we increment the key and value by 1 to make sure we're
-                                                                    // working with fulfilled value instead of an empty value '0'
-                                                                    <option key={x + 1} value={x + 1}>
-                                                                        {x + 1}
-                                                                    </option>
-                                                                ))}
+                                                            <Form.Control
+                                                                as='select'
+                                                                value={qty}
+                                                                onChange={(e) => setQty(e.target.value)}
+                                                            >
+                                                                {[...Array(product.countInStock).keys()].map(
+                                                                    (x) => (
+                                                                        // we increment the key and value by 1 to make sure we're
+                                                                        // working with fulfilled value instead of an empty value '0'
+                                                                        <option key={x + 1} value={x + 1}>
+                                                                            {x + 1}
+                                                                        </option>
+                                                                    )
+                                                                )}
                                                             </Form.Control>
                                                         </Col>
                                                     </Row>
@@ -150,14 +155,15 @@ const ProductScreen = ({history, match}) => {
                                         {product.reviews.map(review => (
                                             <ListGroup.Item key={review._id}>
                                                 <strong>{review.name}</strong>
-                                                <Rating value={review.rating} />
+                                                <Rating value={review.rating}/>
                                                 <p>{review.createdAt.substring(0, 10)}</p>
                                                 <p>{review.comment}</p>
                                             </ListGroup.Item>
                                         ))}
                                         <ListGroup.Item>
                                             <h2>Write a Customer Review</h2>
-                                            {errorProductReview && <Message variant='danger'>{errorProductReview}</Message> }
+                                            {errorProductReview &&
+                                            <Message variant='danger'>{errorProductReview}</Message>}
                                             {userInfo ? (
                                                 <Form onSubmit={submitHandler}>
                                                     <Form.Group controlId='rating'>
@@ -175,11 +181,13 @@ const ProductScreen = ({history, match}) => {
                                                     <Form.Group controlId='comment'>
                                                         <Form.Label>Comment</Form.Label>
                                                         <Form.Control as='textarea' row='3' value={comment}
-                                                        onChange={(e) => setComment(e.target.value)}></Form.Control>
+                                                                      onChange={(e) => setComment(e.target.value)}
+                                                        />
                                                     </Form.Group>
                                                     <Button type='submit' variant='primary'>Submit</Button>
                                                 </Form>
-                                            ) : <Message>Please <Link to={'/login'}>sign in</Link> to write a review {' '}</Message>}
+                                            ) : <Message>Please <Link to={'/login'}>sign in</Link> to write a
+                                                review {' '}</Message>}
                                         </ListGroup.Item>
                                     </ListGroup>
                                 </Col>

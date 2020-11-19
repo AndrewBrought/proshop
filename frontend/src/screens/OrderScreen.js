@@ -41,7 +41,7 @@ const OrderScreen = ({ match, history }) => {
 
     useEffect(() => {
         if (!userInfo) {
-            history.push('login')
+            history.push('/login')
         }
 
         const addPayPalScript = async () => {
@@ -74,12 +74,13 @@ const OrderScreen = ({ match, history }) => {
                 setSdkReady(true)
             }
         }
-    }, [order, orderId, dispatch, successPay, successDeliver, history])
+    }, [order, orderId, dispatch, successPay, successDeliver, history, userInfo])
 
 
     const successPaymentHandler = (paymentResult) => {
         // console.log(paymentResult)
         dispatch(payOrder(orderId, paymentResult))
+        // history.push('/thankyou'/orderId)
     }
 
     const deliverHandler = () => {
@@ -124,6 +125,8 @@ const OrderScreen = ({ match, history }) => {
                                 {order.paymentMethod}
                             </p>
                             {order.isPaid ?
+                                // Trying to clear the cart after payment goes through
+                                // localStorage.removeItem('cartItems') &&
                                 <Message variant='success'>Paid on: {order.paidAt}</Message>
                             :
                                 <Message variant='danger'>Not Paid</Message>
